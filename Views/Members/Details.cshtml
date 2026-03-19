@@ -1,0 +1,128 @@
+@model GymManagementSystem.Models.Member
+@{
+    ViewData["Title"] = "Member Details";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <div class="member-photo-lg bg-secondary d-flex align-items-center justify-content-center mx-auto">
+                             <i class="fas fa-user fa-5x text-white"></i>
+                        </div>
+                    </div>
+                    <h4 class="text-white">@Model.FullName</h4>
+                    <p class="text-white-50 mb-3">@Model.Email</p>
+                    <span class="badge bg-warning text-dark">@Model.Plan?.Name</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Personal Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <p class="detail-label">Email</p>
+                            <p class="detail-value"><i class="fas fa-envelope me-2"></i>@Model.Email</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="detail-label">Phone</p>
+                            <p class="detail-value"><i class="fas fa-phone me-2"></i>@(Model.Phone ?? "-")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="detail-label">Birth Date</p>
+                            <p class="detail-value"><i class="fas fa-birthday-cake me-2"></i>@Model.BirthDate.ToString("MM/dd/yyyy")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="detail-label">Registration Date</p>
+                            <p class="detail-value"><i class="fas fa-calendar me-2"></i>@Model.RegistrationDate.ToString("MM/dd/yyyy")</p>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="detail-label">Remaining Time</p>
+                            <p class="detail-value">
+                                <i class="fas fa-hourglass-half me-2"></i>
+                                @if (Model.RemainingDays <= 7 && Model.RemainingDays > 0)
+                                {
+                                    <span class="badge bg-danger">@Model.RemainingTimeText</span>
+                                }
+                                else if (Model.RemainingDays <= 0)
+                                {
+                                    <span class="badge bg-secondary">@Model.RemainingTimeText</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">@Model.RemainingTimeText</span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Membership Plan</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Plan != null)
+                            {
+                                <h5>@Model.Plan.Name</h5>
+                                <p class="mb-1"><strong>Price:</strong> @Model.Plan.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</p>
+                                <p class="mb-1"><strong>Duration:</strong> @Model.Plan.DurationMonths months</p>
+                                <p class="mb-0"><strong>Type:</strong> <span class="badge bg-primary">@Model.Plan.FitnessType?.Name</span></p>
+                            }
+                            else
+                            {
+                                <p class="text-white-50 mb-0">Plan information not found.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-6">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h5 class="mb-0"><i class="fas fa-user-tie me-2"></i>Trainer</h5>
+                        </div>
+                        <div class="card-body">
+                            @if (Model.Trainer != null)
+                            {
+                                <h5>@Model.Trainer.FullName</h5>
+                                <p class="mb-1"><strong>Email:</strong> @Model.Trainer.Email</p>
+                                <p class="mb-1"><strong>Phone:</strong> @Model.Trainer.Phone</p>
+                                <p class="mb-0"><strong>Specializations:</strong> 
+                                    @foreach (var fitType in Model.Trainer.FitnessTypes)
+                                    {
+                                        <span class="badge bg-success me-1 mb-1">@fitType.Name</span>
+                                    }
+                                </p>
+                            }
+                            else
+                            {
+                                <p class="text-white-50 mb-0">Trainer information not found.</p>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fas fa-edit me-2"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>

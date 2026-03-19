@@ -1,0 +1,100 @@
+@model IEnumerable<GymManagementSystem.Models.Member>
+@{
+    ViewData["Title"] = "Members";
+}
+
+<div class="page-header">
+    <div class="container">
+        <h1><i class="fas fa-users me-3"></i>Members</h1>
+        <p>Manage gym members</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>All Members</h4>
+        
+        <div class="position-relative mx-3 flex-grow-1" style="max-width: 400px;">
+            <i class="fas fa-search position-absolute text-muted" style="left: 16px; top: 50%; transform: translateY(-50%);"></i>
+            <input type="text" id="pageSearchInput" class="form-control shadow-sm" placeholder="Quick search..." autocomplete="off" style="border-radius: 10px; padding-left: 45px; padding-top: 10px; padding-bottom: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; transition: all 0.3s ease;" onfocus="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.3)';">
+        </div>
+ 
+        <a asp-action="Create" class="btn btn-primary">
+            <i class="fas fa-user-plus me-2"></i>New Member
+        </a>
+    </div>
+
+    <div class="card">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table mb-0">
+                    <thead>
+                        <tr>
+
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Plan</th>
+                            <th>Trainer</th>
+                            <th>Registration Date</th>
+                            <th>Remaining Time</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+
+                                <td><strong>@item.FullName</strong></td>
+                                <td>@item.Email</td>
+                                <td>@item.Phone</td>
+                                <td><span class="badge bg-warning text-dark">@item.Plan?.Name</span></td>
+                                <td>@item.Trainer?.FullName</td>
+                                <td>@item.RegistrationDate.ToString("MM/dd/yyyy")</td>
+                                <td>
+                                    @if (item.RemainingDays <= 7 && item.RemainingDays > 0)
+                                    {
+                                        <span class="badge bg-danger">@item.RemainingTimeText</span>
+                                    }
+                                    else if (item.RemainingDays <= 0)
+                                    {
+                                        <span class="badge bg-secondary">@item.RemainingTimeText</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">@item.RemainingTimeText</span>
+                                    }
+                                </td>
+                                <td>
+                                    <div class="action-buttons">
+                                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                            <i class="fas fa-eye"></i>
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                            <i class="fas fa-trash"></i>
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card mt-4">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-users fa-4x text-muted mb-3"></i>
+                <h5>No members added yet</h5>
+                <p class="text-muted">Click the button above to add your first member.</p>
+            </div>
+        </div>
+    }
+</div>

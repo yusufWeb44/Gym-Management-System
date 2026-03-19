@@ -1,0 +1,111 @@
+@model GymManagementSystem.Models.FitnessType
+@{
+    ViewData["Title"] = "Fitness Type Details";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Name" class="card-img-top" />
+                }
+                else
+                {
+                    <div style="height: 250px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-dumbbell fa-5x text-white"></i>
+                    </div>
+                }
+                <div class="card-body">
+                    <h4>@Model.Name</h4>
+                    <p class="text-muted">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-user-tie me-2"></i>Trainers of This Type</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Trainers?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Experience</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var trainer in Model.Trainers)
+                                    {
+                                        <tr>
+                                            <td>@trainer.FullName</td>
+                                            <td>@trainer.Email</td>
+                                            <td>@trainer.ExperienceYears years</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No trainers listed for this fitness type.</p>
+                    }
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-clipboard-list me-2"></i>Plans of This Type</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Plans?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Plan Name</th>
+                                        <th>Price</th>
+                                        <th>Duration</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var plan in Model.Plans)
+                                    {
+                                        <tr>
+                                            <td>@plan.Name</td>
+                                            <td>@plan.Price.ToString("C", new System.Globalization.CultureInfo("en-US"))</td>
+                                            <td>@plan.DurationMonths months</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No plans listed for this fitness type.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fas fa-edit me-2"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>

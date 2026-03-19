@@ -1,0 +1,14 @@
+appsettings.json
+appsettings.Development.json
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+*.nuget.cache
+project.assets.json
+wwwroot/lib/
+.DS_Store
+Thumbs.db

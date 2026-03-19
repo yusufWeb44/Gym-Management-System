@@ -1,0 +1,558 @@
+/* ============================================
+   GYM Management System - Modern CSS Styles
+   ============================================ */
+
+/* CSS Variables */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    --warning-gradient: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+    --danger-gradient: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+    --dark-bg: #1a1a2e;
+    --card-bg: #16213e;
+    --text-light: #f8f9fa;
+    --text-muted: #ced4da;
+    /* Lighter gray for better contrast */
+    --border-radius: 15px;
+    --transition: all 0.3s ease;
+}
+
+/* Force light text colors */
+.text-muted {
+    color: var(--text-muted) !important;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    color: var(--text-light) !important;
+}
+
+p {
+    color: var(--text-light);
+}
+
+.card-body p.text-muted {
+    color: var(--text-muted) !important;
+}
+
+/* Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--dark-bg);
+    color: var(--text-light);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar Styles */
+.navbar {
+    background: rgba(22, 33, 62, 0.95) !important;
+    backdrop-filter: blur(10px);
+    padding: 1rem 0;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.nav-link {
+    color: var(--text-light) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    margin: 0 0.25rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.nav-link:hover {
+    background: rgba(102, 126, 234, 0.2);
+    transform: translateY(-2px);
+}
+
+/* Dropdown Menu overrides for dark theme */
+.dropdown-item {
+    color: var(--text-light);
+    transition: var(--transition);
+}
+
+.dropdown-item:hover,
+.dropdown-item:focus {
+    background: rgba(102, 126, 234, 0.2);
+    color: var(--text-light);
+}
+
+/* Main Content */
+.main-content {
+    flex: 1;
+    padding-top: 80px;
+    padding-bottom: 2rem;
+}
+
+.container {
+    max-width: 1400px;
+}
+
+/* Page Headers */
+.page-header {
+    background: var(--primary-gradient);
+    padding: 3rem 0;
+    margin-bottom: 2rem;
+    border-radius: 0 0 30px 30px;
+}
+
+.page-header h1 {
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+/* Cards */
+.card {
+    background: var(--card-bg);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-header {
+    background: rgba(102, 126, 234, 0.1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 1rem 1.5rem;
+}
+
+.card-body {
+    padding: 1.5rem;
+}
+
+/* Stat Cards */
+.stat-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.stat-card.members::before {
+    background: var(--primary-gradient);
+}
+
+.stat-card.trainers::before {
+    background: var(--success-gradient);
+}
+
+.stat-card.plans::before {
+    background: var(--warning-gradient);
+}
+
+.stat-card.fitness::before {
+    background: var(--secondary-gradient);
+}
+
+.stat-card.danger::before {
+    background: var(--danger-gradient);
+}
+
+.stat-card.info::before {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+}
+
+.stat-card .icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.8;
+}
+
+.stat-card.members .icon {
+    color: #667eea;
+}
+
+.stat-card.trainers .icon {
+    color: #11998e;
+}
+
+.stat-card.plans .icon {
+    color: #f2994a;
+}
+
+.stat-card.fitness .icon {
+    color: #f093fb;
+}
+
+.stat-card.danger .icon {
+    color: #f45c43;
+}
+
+.stat-card.info .icon {
+    color: #00c6ff;
+}
+
+.stat-card .number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.stat-card .label {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* Tables */
+.table {
+    color: var(--text-light);
+    margin-bottom: 0;
+}
+
+.table thead th {
+    background: rgba(102, 126, 234, 0.2);
+    border-bottom: 2px solid rgba(102, 126, 234, 0.5);
+    color: var(--text-light);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+    padding: 1rem;
+}
+
+.table tbody tr {
+    transition: var(--transition);
+}
+
+.table tbody tr:hover {
+    background: rgba(102, 126, 234, 0.1);
+}
+
+.table tbody td {
+    padding: 1rem;
+    vertical-align: middle;
+    border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Buttons */
+.btn {
+    border-radius: 8px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 500;
+    transition: var(--transition);
+    border: none;
+}
+
+.btn-primary {
+    background: var(--primary-gradient);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-success {
+    background: var(--success-gradient);
+}
+
+.btn-success:hover {
+    transform: translateY(-2px);
+}
+
+.btn-warning {
+    background: var(--warning-gradient);
+    color: #fff;
+}
+
+.btn-warning:hover {
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+.btn-danger {
+    background: var(--danger-gradient);
+}
+
+.btn-danger:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.btn-sm {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.85rem;
+}
+
+.btn-info {
+    background: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+    color: #fff;
+}
+
+.btn-info:hover {
+    transform: translateY(-2px);
+    color: #fff;
+}
+
+/* Forms */
+.form-control,
+.form-select {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-light);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    transition: var(--transition);
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #667eea;
+    color: var(--text-light);
+}
+
+.form-control::placeholder {
+    color: var(--text-muted);
+}
+
+.form-select option {
+    background: var(--card-bg);
+    color: var(--text-light);
+}
+
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+    color: var(--text-light);
+}
+
+.form-text {
+    color: var(--text-muted);
+}
+
+/* Validation */
+.text-danger {
+    color: #f45c43 !important;
+    font-size: 0.85rem;
+}
+
+.field-validation-error {
+    color: #f45c43;
+    font-size: 0.85rem;
+}
+
+/* Alerts */
+.alert {
+    border: none;
+    border-radius: var(--border-radius);
+    padding: 1rem 1.5rem;
+}
+
+.alert-success {
+    background: rgba(17, 153, 142, 0.2);
+    color: #38ef7d;
+}
+
+.alert-danger {
+    background: transparent !important;
+    color: #f45c43;
+}
+
+/* Badges */
+.badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.badge.bg-primary {
+    background: var(--primary-gradient) !important;
+}
+
+.badge.bg-success {
+    background: var(--success-gradient) !important;
+}
+
+/* Images */
+.member-photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid rgba(102, 126, 234, 0.5);
+}
+
+.member-photo-lg {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid rgba(102, 126, 234, 0.5);
+}
+
+.fitness-image {
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    object-fit: cover;
+}
+
+.fitness-image-lg {
+    width: 100%;
+    max-height: 300px;
+    border-radius: var(--border-radius);
+    object-fit: cover;
+}
+
+/* Footer */
+.footer {
+    background: var(--card-bg);
+    color: var(--text-muted);
+    padding: 2rem 0;
+    margin-top: auto;
+}
+
+.footer h5 {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+/* Hero Section */
+.hero-section {
+    background: var(--primary-gradient);
+    padding: 4rem 0;
+    border-radius: 0 0 50px 50px;
+    margin-bottom: 3rem;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Fitness Type Cards */
+.fitness-card {
+    background: var(--card-bg);
+    border-radius: var(--border-radius);
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+.fitness-card:hover {
+    transform: translateY(-10px);
+}
+
+.fitness-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.fitness-card .card-body {
+    padding: 1.5rem;
+}
+
+.fitness-card h5 {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+/* Action Buttons Group */
+.action-buttons {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* Details View */
+.detail-label {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.25rem;
+}
+
+.detail-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+/* Animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.animate-fade-in {
+    animation: fadeInUp 0.5s ease forwards;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+
+    .stat-card {
+        margin-bottom: 1rem;
+    }
+
+    .table-responsive {
+        border-radius: var(--border-radius);
+    }
+
+    .action-buttons {
+        flex-direction: column;
+    }
+}

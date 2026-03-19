@@ -1,0 +1,72 @@
+@model IEnumerable<GymManagementSystem.Models.Plan>
+@{
+    ViewData["Title"] = "Membership Plans";
+}
+
+<div class="page-header" style="background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);">
+    <div class="container">
+        <h1><i class="fas fa-clipboard-list me-3"></i>Membership Plans</h1>
+        <p>Manage gym membership plans</p>
+    </div>
+</div>
+
+<div class="container">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h4>All Plans</h4>
+        
+        <div class="position-relative mx-3 flex-grow-1" style="max-width: 400px;">
+            <i class="fas fa-search position-absolute text-muted" style="left: 16px; top: 50%; transform: translateY(-50%);"></i>
+            <input type="text" id="pageSearchInput" class="form-control shadow-sm" placeholder="Quick search..." autocomplete="off" style="border-radius: 10px; padding-left: 45px; padding-top: 10px; padding-bottom: 10px; background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 255, 255, 0.1); color: #fff; transition: all 0.3s ease;" onfocus="this.style.background='rgba(255,255,255,0.08)'; this.style.borderColor='rgba(255,255,255,0.3)';">
+        </div>
+ 
+        <a asp-action="Create" class="btn btn-warning">
+            <i class="fas fa-plus me-2"></i>New Plan
+        </a>
+    </div>
+
+    <div class="row g-4">
+        @foreach (var item in Model)
+        {
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100">
+                    <div class="card-header text-center" style="background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);">
+                        <h5 class="mb-0 text-white">@item.Name</h5>
+                    </div>
+                    <div class="card-body text-center">
+                        <div class="mb-3">
+                            <span class="display-4 fw-bold text-white">@item.Price.ToString("N0")</span>
+                            <span class="text-white-50">$ Total</span>
+                        </div>
+                        <p class="mb-2 text-white"><i class="fas fa-clock me-2"></i>@item.DurationMonths months duration</p>
+                        <span class="badge bg-primary mb-3">@item.FitnessType?.Name</span>
+                        <p class="text-white-50 small">@item.Description</p>
+                    </div>
+                    <div class="card-footer bg-transparent">
+                        <div class="action-buttons justify-content-center">
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-sm btn-info">
+                                <i class="fas fa-eye"></i>
+                            </a>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-sm btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    @if (!Model.Any())
+    {
+        <div class="card">
+            <div class="card-body text-center py-5">
+                <i class="fas fa-clipboard-list fa-4x text-muted mb-3"></i>
+                <h5>No plans added yet</h5>
+                <p class="text-muted">Click the button above to add your first plan.</p>
+            </div>
+        </div>
+    }
+</div>

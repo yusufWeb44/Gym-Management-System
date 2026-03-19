@@ -1,0 +1,75 @@
+@model GymManagementSystem.Models.Plan
+@{
+    ViewData["Title"] = "Plan Details";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-header text-center" style="background: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);">
+                    <h4 class="mb-0 text-white">@Model.Name</h4>
+                </div>
+                <div class="card-body text-center">
+                    <div class="mb-3">
+                        <span class="display-3 fw-bold text-white">@Model.Price.ToString("N0")</span>
+                        <span class="text-white-50">$ Total</span>
+                    </div>
+                    <p class="mb-2"><i class="fas fa-clock me-2"></i>@Model.DurationMonths months duration</p>
+                    <span class="badge bg-primary mb-3">@Model.FitnessType?.Name</span>
+                    <p class="text-muted">@Model.Description</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-users me-2"></i>Members on This Plan</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Members?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Registration Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var member in Model.Members)
+                                    {
+                                        <tr>
+                                            <td>@member.FullName</td>
+                                            <td>@member.Email</td>
+                                            <td>@member.Phone</td>
+                                            <td>@member.RegistrationDate.ToString("MM/dd/yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No members registered to this plan.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fas fa-edit me-2"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>

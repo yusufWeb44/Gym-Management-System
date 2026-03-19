@@ -1,0 +1,96 @@
+@model GymManagementSystem.Models.Trainer
+@{
+    ViewData["Title"] = "Trainer Details";
+}
+
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    @if (!string.IsNullOrEmpty(Model.ImageUrl))
+                    {
+                        <img src="@Model.ImageUrl" alt="@Model.FullName" class="rounded-circle border border-3 border-light mb-3" style="width: 150px; height: 150px; object-fit: cover;" />
+                    }
+                    else
+                    {
+                        <div class="mb-3" style="width: 150px; height: 150px; background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <i class="fas fa-user-tie fa-4x text-white"></i>
+                        </div>
+                    }
+                    <h4>@Model.FullName</h4>
+                    <div class="mb-3">
+                        @foreach (var fitType in Model.FitnessTypes)
+                        {
+                            <span class="badge bg-primary me-1 mb-1">@fitType.Name</span>
+                        }
+                    </div>
+                    
+                    <hr class="my-4" />
+                    
+                    <div class="text-start">
+                        <p class="detail-label">Email</p>
+                        <p class="detail-value"><i class="fas fa-envelope me-2"></i>@Model.Email</p>
+                        
+                        <p class="detail-label">Phone</p>
+                        <p class="detail-value"><i class="fas fa-phone me-2"></i>@Model.Phone</p>
+                        
+                        <p class="detail-label">Experience</p>
+                        <p class="detail-value"><i class="fas fa-award me-2"></i>@Model.ExperienceYears years</p>
+ 
+                        <p class="detail-label">Salary</p>
+                        <p class="detail-value"><i class="fas fa-money-bill-wave me-2"></i>@Model.Salary.ToString("C0", new System.Globalization.CultureInfo("en-US"))</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0"><i class="fas fa-users me-2"></i>Trainer's Members</h5>
+                </div>
+                <div class="card-body">
+                    @if (Model.Members?.Any() == true)
+                    {
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Full Name</th>
+                                        <th>Email</th>
+                                        <th>Registration Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var member in Model.Members)
+                                    {
+                                        <tr>
+                                            <td>@member.FullName</td>
+                                            <td>@member.Email</td>
+                                            <td>@member.RegistrationDate.ToString("MM/dd/yyyy")</td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted mb-0">No members registered with this trainer.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="mt-4">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+            <i class="fas fa-edit me-2"></i>Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <i class="fas fa-arrow-left me-2"></i>Back to List
+        </a>
+    </div>
+</div>

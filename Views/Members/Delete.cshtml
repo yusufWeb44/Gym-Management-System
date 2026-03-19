@@ -1,0 +1,42 @@
+@model GymManagementSystem.Models.Member
+@{
+    ViewData["Title"] = "Delete Member";
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body p-4 text-center">
+
+                    <div class="mb-3 mx-auto" style="width: 100px; height: 100px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user fa-3x text-white"></i>
+                    </div>
+                    
+                    <h4>@Model.FullName</h4>
+                    <p class="text-muted mb-2">@Model.Email</p>
+                    <p class="mb-1"><span class="badge bg-warning text-dark">@Model.Plan?.Name</span></p>
+                    <p class="mb-3">Trainer: @Model.Trainer?.FullName</p>
+                    
+                    <div class="alert alert-danger">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Warning!</strong> This action cannot be undone.
+                    </div>
+                    
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-flex gap-2 justify-content-center">
+                            <button type="submit" class="btn btn-danger">
+                                <i class="fas fa-trash me-2"></i>Yes, Delete
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

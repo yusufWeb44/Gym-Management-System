@@ -1,0 +1,90 @@
+@model GymManagementSystem.ViewModels.TrainerViewModel
+@{
+    ViewData["Title"] = "Edit Trainer";
+}
+
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-body p-4">
+                    <form asp-action="Edit" enctype="multipart/form-data">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <input type="hidden" asp-for="Id" />
+                        
+                        <div class="mb-3">
+                            <label asp-for="FullName" class="form-label"></label>
+                            <input asp-for="FullName" class="form-control" />
+                            <span asp-validation-for="FullName" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" type="email" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Phone" class="form-label"></label>
+                            <input asp-for="Phone" class="form-control" />
+                            <span asp-validation-for="Phone" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="ExperienceYears" class="form-label"></label>
+                            <input asp-for="ExperienceYears" class="form-control" type="number" min="0" max="50" />
+                            <span asp-validation-for="ExperienceYears" class="text-danger"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Salary" class="form-label"></label>
+                            <input asp-for="Salary" class="form-control" type="number" step="0.01" min="0" />
+                            <span asp-validation-for="Salary" class="text-danger"></span>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label asp-for="Image" class="form-label">
+                                <i class="fas fa-camera me-2"></i>Photo (Optional)
+                            </label>
+                            <input asp-for="Image" class="form-control" type="file" accept="image/*" onchange="previewImage(this, 'photoPreview')" />
+                            <span asp-validation-for="Image" class="text-danger"></span>
+                            
+                            <div class="mt-2 text-center" id="previewContainer">
+                                @if (ViewBag.CurrentImageUrl != null)
+                                {
+                                    <img id="photoPreview" src="@ViewBag.CurrentImageUrl" class="rounded-circle border border-3 border-light shadow" style="width: 150px; height: 150px; object-fit: cover;" />
+                                }
+                                else
+                                {
+                                    <img id="photoPreview" class="rounded-circle border border-3 border-light shadow" style="width: 150px; height: 150px; object-fit: cover; display: none;" />
+                                }
+                            </div>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <label asp-for="SelectedFitnessTypeIds" class="form-label"></label>
+                            <select asp-for="SelectedFitnessTypeIds" class="form-select" asp-items="Model.FitnessTypes" multiple size="5">
+                            </select>
+                            <span asp-validation-for="SelectedFitnessTypeIds" class="text-danger"></span>
+                            <small class="text-muted">Hold Ctrl (or Cmd) to select multiple types.</small>
+                        </div>
+                        
+                        <div class="d-flex gap-2">
+                            <button type="submit" class="btn btn-success">
+                                <i class="fas fa-save me-2"></i>Update
+                            </button>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left me-2"></i>Back
+                            </a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
